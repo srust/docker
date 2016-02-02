@@ -51,7 +51,7 @@ func (a *volumeDriverAdapter) Get(name string) (volume.Volume, error) {
 	v, err := a.proxy.Get(name)
 	if err != nil {
 		// TODO: remove this hack. Allows back compat with volume drivers that don't support this call
-		if !plugins.IsNotFound(err) {
+		if plugins.IsNotFound(err) {
 			return nil, err
 		}
 		return a.Create(name, nil)
